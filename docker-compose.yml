@@ -5,11 +5,18 @@ services:
     container_name: webapp
     hostname: webapp
     build: ./webapp
+    environment:
+      DB_NAME: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - internal_network
     volumes:
       - webapp_data:/var/www/
+    depends_on:
+      - postgres # Ensure postgres starts first
     restart: always
+    working_dir: /app
 
   postgres:
     container_name: proxy
