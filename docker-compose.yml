@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  webapp:
+    container_name: webapp
+    hostname: webapp
+    build: ./webapp
+    networks:
+      - internal_network
+    volumes:
+      - webapp_data:/var/www/
+    restart: always
+
+  postgres:
+    container_name: proxy
+    hostname: proxy
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    networks:
+      - internal_network
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+
+  nginx:
+    container_name: proxy
+    hostname: proxy
+    image: nginx:latest
+    environment:
+      - NGINX_PORT=80
+    ports:
+      - "8080:80"
+      - "4430:443"
+    networks:
+      - internal_network
+      - external_network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Ngnix config (mounted as read-only)
+    depends_on:
+      - webapp # Ensure webapp starts first
+    restart: always
+
+networks:
+  internal_network:
+    driver: bridge
+    internal: true
+  external_network:
+    driver: bridge
+    external: true
+
+volumes:
+  postgres_data:
+    driver: local
+  webapp_data:
+    driver: local
