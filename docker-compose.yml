@@ -39,12 +39,11 @@ services:
       - NGINX_PORT=80
     ports:
       - "8080:80"
-      - "4430:443"
     networks:
       - internal_network
       - external_network
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # Ngnix config (mounted as read-only)
+      - ./nginx/__nginx.conf:/etc/nginx/__nginx.conf:ro # Ngnix config (mounted as read-only)
     depends_on:
       - webapp # Ensure webapp starts first
     restart: always
