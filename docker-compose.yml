@@ -6,13 +6,14 @@ services:
     hostname: webapp
     build: ./webapp
     environment:
-      DB_NAME: ${POSTGRES_DB}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_DB_NAME: ${POSTGRES_DB}
+      APP_DB_USER: ${POSTGRES_USER}
+      APP_DB_PASSWORD: ${POSTGRES_PASSWORD}
     networks:
       - internal_network
     volumes:
-      - webapp_data:/var/www/
+      - ./webapp/app:/var/www:ro # webapp (mounted as read-only)
+
     depends_on:
       - postgres # Ensure postgres starts first
     restart: always
@@ -29,7 +30,7 @@ services:
     networks:
       - internal_network
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/app
     restart: always
 
   nginx:
@@ -60,6 +61,4 @@ networks:
 
 volumes:
   postgres_data:
-    driver: local
-  webapp_data:
     driver: local
