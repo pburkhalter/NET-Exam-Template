@@ -5,11 +5,12 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY package*.json ./
+COPY ./app/package.json ./
 RUN npm install
 
 # Bundle app source
-COPY . .
+COPY ./app .
 
-EXPOSE 3000
-CMD [ "node", "index.js" ]
+EXPOSE 8080
+
+ENTRYPOINT entrypoint.sh

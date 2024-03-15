@@ -12,12 +12,10 @@ services:
     networks:
       - internal_network
     volumes:
-      - ./webapp/app:/var/www:ro # webapp (mounted as read-only)
-
+      - ./webapp/app:/usr/src/app:ro # webapp (mounted as read-only)
     depends_on:
       - postgres # Ensure postgres starts first
     restart: always
-    working_dir: /app
 
   postgres:
     container_name: proxy
