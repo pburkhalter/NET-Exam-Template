@@ -43,7 +43,7 @@ services:
       - internal_network
       - external_network
     volumes:
-      - ./nginx/__nginx.conf:/etc/nginx/__nginx.conf:ro # Ngnix config (mounted as read-only)
+      - ./nginx/__nginx.conf:/etc/nginx/__nginx.conf:ro # Nginx config (mounted as read-only)
     depends_on:
       - webapp # Ensure webapp starts first
     restart: always
