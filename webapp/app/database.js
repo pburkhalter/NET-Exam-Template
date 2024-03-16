@@ -4,7 +4,7 @@ const db = {
     name: process.env.APP_DB_NAME || "Login",
     user: process.env.APP_DB_USER || "Test",
     pass: process.env.APP_DB_PASS || "test1234",
-    host: process.env.POSTGRES_HOST || "localhost"
+    host: process.env.APP_DB_HOST || "db"
 }
 
 class Database extends Sequelize {

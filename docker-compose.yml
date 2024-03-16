@@ -8,18 +8,19 @@ services:
     environment:
       APP_DB_NAME: ${POSTGRES_DB}
       APP_DB_USER: ${POSTGRES_USER}
-      APP_DB_PASSWORD: ${POSTGRES_PASSWORD}
+      APP_DB_PASS: ${POSTGRES_PASSWORD}
+      APP_DB_HOST: db
     networks:
       - internal_network
     volumes:
-      - ./webapp/app:/usr/src/app:ro # webapp (mounted as read-only)
+      - webapp_data:/usr/src/app
     depends_on:
       - postgres # Ensure postgres starts first
     restart: always
 
-  postgres:
-    container_name: proxy
-    hostname: proxy
+  db:
+    container_name: db
+    hostname: db
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
@@ -31,7 +32,7 @@ services:
       - postgres_data:/var/lib/postgresql/app
     restart: always
 
-  nginx:
+  proxy:
     container_name: proxy
     hostname: proxy
     image: nginx:latest
@@ -58,4 +59,6 @@ networks:
 
 volumes:
   postgres_data:
+    driver: local
+  webapp_data:
     driver: local

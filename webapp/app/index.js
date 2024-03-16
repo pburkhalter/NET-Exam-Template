@@ -1,8 +1,6 @@
 const express = require('express');
-// const { expressjwt: jwt } = require('express-jwt');
 const jwt = require("jsonwebtoken");
 const formidable = require('express-formidable');
-//const bcrypt = require("bcrypt");
 const models = require('./models');
 const controller = require('./controller');
 
@@ -10,8 +8,8 @@ const db = models.database;
 
 
 console.log("\x1b[36m[sequelize] initialize database\x1b[37m");
-// db.sync({logging: () => {}}).then(() => {
-db.sync().then(() => {    
+
+db.sync().then(() => {
     console.log("\x1b[32m[sequelize] database loaded\x1b[37m");
 
     const app = express();
