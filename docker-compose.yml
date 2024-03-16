@@ -20,7 +20,7 @@ services:
 
   db:
     container_name: db
-    hostname: db
+    hostname: db # this must be changed to correspond to the hostname the webapp specifies...
     image: postgres:latest
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
