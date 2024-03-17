@@ -15,7 +15,7 @@ services:
     volumes:
       - webapp_data:/usr/src/app
     depends_on:
-      - postgres # Ensure postgres starts first
+      - db # Ensure postgres starts first
     restart: always
 
   db:
@@ -55,7 +55,6 @@ networks:
     internal: true
   external_network:
     driver: bridge
-    external: true
 
 volumes:
   postgres_data:

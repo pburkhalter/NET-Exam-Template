@@ -5,13 +5,15 @@ FROM node:18-alpine
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY ./app/package.json ./
+COPY app/package.json .
 RUN npm install
-RUN npm build
 
 # Bundle app source
-COPY ./app .
+COPY app/ .
+COPY scripts/entrypoint.sh /docker-entrypoint.d/
+
+RUN chmod +x /docker-entrypoint.d/entrypoint.sh
 
 EXPOSE 8080
 
-ENTRYPOINT entrypoint.sh
+ENTRYPOINT ["/bin/sh", "/docker-entrypoint.d/entrypoint.sh"]
