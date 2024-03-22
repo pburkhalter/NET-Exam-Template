@@ -17,10 +17,9 @@ fi
 
 # Proceed with Zabbix Agent installation
 echo "Downloading Zabbix Agent..."
-wget https://repo.zabbix.com/zabbix/6.4/raspbian/pool/main/z/zabbix-release/zabbix-release_6.4-1+debian11_all.deb
-
+wget https://repo.zabbix.com/zabbix/6.4/debian/pool/main/z/zabbix-release/zabbix-release_6.4-1%2Bdebian12_all.deb
 echo "Installing Zabbix repository configuration package..."
-dpkg -i zabbix-release_6.4-1+debian11_all.deb
+dpkg -i zabbix-release_6.4-1+debian12_all.deb
 
 echo "Updating package lists..."
 apt update
